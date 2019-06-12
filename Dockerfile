@@ -21,7 +21,7 @@ COPY sources.list /etc/apt/
 # setting `DEBIAN_FRONTEND` to "noninteractive" informs OS that running commands shall not ask user to check
 # make sure to set this in `RUN` rather than `ENV`, 'cause you may need to operate on interactive shell later on
 # DEBIAN_FRONTEND="noninteractive"; 
-RUN rm -Rf /var/lib/apt/lists/* && apt-get clean && apt-get update -y --fix-missing && apt-get install --fix-missing --no-install-recommends $buildDeps \
+RUN rm -Rf /var/lib/apt/lists/* && apt-get clean && apt-get update --fix-missing && apt-get install -y --fix-missing --no-install-recommends $buildDeps \
     && mkdir /home/robocup3d && chown robocup3d /home/robocup3d && useradd robocup3d -d /home/robocup3d && su robocup3d
 WORKDIR /home/robocup3d
 # clone src, build and install
