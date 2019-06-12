@@ -31,6 +31,9 @@ RUN git clone --branch RCSSSERVER3D_${RCSSSERVER3D_RELEASE}_RELEASE --depth 1 ht
     && mkdir -p /tmp/SimSpark/rcssserver3d/build && cd /tmp/SimSpark/rcssserver3d/build && cmake -DRVDRAW=ON .. && make -j$(nproc) && make install && ldconfig \
     && rm -fr /tmp/SimSpark \
     && apt-get purge -y --auto-remove $buildDeps && rm -rf /var/lib/apt/lists/* 
+# for test
+WORKDIR /home/robocup3d
+RUN git clone https://github.com/LARG/utaustinvilla3d && cd utaustinvilla3d && cmake . && make -j${nproc} && echo "build successfully!"
 
 # can be rewritten by command line args
 CMD [ "rcssserver3d" ]
