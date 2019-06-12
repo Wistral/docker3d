@@ -5,7 +5,7 @@
 ###############################################
 # set system base
 FROM ubuntu:16.04
-MAINTAINER WISTRAL SHAN
+MAINTAINER whistral@gmail.com
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #     libfreetype6 libode6 libsdl1.2debian ruby libdevil1c2 qt4-default \
 #     && apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
@@ -18,11 +18,9 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 # replace source list
 COPY sources.list /etc/apt/
 # install 
-    # sed -i "s|http://archive.ubuntu.com|http://mirrors.ustc.edu.cn|g" /etc/apt/sources.list && rm -Rf /var/lib/apt/lists/* \
-
 # setting `DEBIAN_FRONTEND` to "noninteractive" informs OS that running commands shall not ask user to check
 # make sure to set this in `RUN` rather than `ENV`, 'cause you may need to operate on interactive shell later on
-RUN DEBIAN_FRONTEND="noninteractive"; rm -Rf /var/lib/apt/lists/* && apt-get clean && apt-get update --fix-missing && apt-get install --fix-missing --no-install-recommends $buildDeps \
+RUN DEBIAN_FRONTEND="noninteractive"; rm -Rf /var/lib/apt/lists/* && apt-get clean && apt-get update -y --fix-missing && apt-get install --fix-missing --no-install-recommends $buildDeps \
     && mkdir /home/robocup3d && chown robocup3d /home/robocup3d && useradd robocup3d -d /home/robocup3d && su robocup3d
 WORKDIR /home/robocup3d
 # clone src, build and install
